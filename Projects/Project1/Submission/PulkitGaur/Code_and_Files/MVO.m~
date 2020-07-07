@@ -1,0 +1,26 @@
+function  x = MVO(mu, Q, targetRet)
+    
+    % Use this function to construct your MVO portfolio subject to the
+    % target return, with short sales disallowed. 
+    %
+    % You may use quadprog, Gurobi, or any other optimizer you are familiar
+    % with. Just be sure to comment on your code to (briefly) explain your
+    % procedure.
+
+    % Find the total number of assets
+    n = size(Q,1); 
+
+    % *************** WRITE YOUR CODE HERE ***************
+    %----------------------------------------------------------------------
+    
+    H = Q; % Objective function cost
+    % Constraints
+    Aeq = [ones(1,n);mu']; % sum of weights is equal to 1, portfolio return meet the required return
+    beq = [1;targetRet];
+    lb = zeros(n,1); % short sales a
+    
+
+    x = quadprog(H,[],[],[],Aeq,beq,lb,[]);        % Optimal asset weights
+    %----------------------------------------------------------------------
+    
+end
